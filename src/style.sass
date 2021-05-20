@@ -1,0 +1,110 @@
+@import './constants/variables.sass'
+
+
+.graph
+  padding: 0.6em 1.5em 1.3em 1.5em
+  border: 1px solid #C6C6C6
+  background: white
+  border-radius: 4px
+  position: relative
+
+
+.border-graph
+  height: calc(100% - 3.2em)
+
+.svg-container, #mainGraph, .plot-container, .main-svg, .js-plotly-plot
+  height: 100% !important
+  width: 100% !important
+
+.graph-holder
+  width: calc(100% - 2em) !important
+  height: 85% !important
+
+.wrapper
+  display: flex
+  flex-direction: column
+
+.wrapper > *
+  flex: auto
+
+@font-face
+  font-family: Univia Pro Ultra Light
+  src: url('./assets/Fonts/Univia.Pro/UniviaPro-UltraLight.otf')
+
+@font-face
+  font-family: Univia Pro Regular
+  src: url('./assets/Fonts/Univia.Pro/UniviaPro-Regular.otf')
+
+@font-face
+  font-family: Roboto Regular
+  src: url('./assets/Fonts/Roboto/Roboto-Regular.ttf')
+
+@font-face
+  font-family: Roboto Bold
+  src: url('./assets/Fonts/Roboto/Roboto-Bold.ttf')
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: $screen-sm-min)
+  html
+    font-size: 9px
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: $screen-md-min)
+  html
+    font-size: 9px
+
+// Large devices (desktops, 992px and up)
+@media (min-width: $screen-lg-min)
+  html
+    font-size: 12px
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: $screen-xl-min)
+  html
+    font-size: 14px
+
+// Extra large devices (large desktops, 1600px and up)
+@media (min-width: $screen-xxl-min)
+  html
+    font-size: 15px
+
+// Extra large devices (large desktops, 1920px and up)
+@media (min-width: $screen-default)
+  html
+    font-size: 16px
+
+.d-block
+  display: block
+
+*,
+*::before,
+*::after
+  -webkit-box-sizing: border-box
+    box-sizing: border-box
+
+
+html
+  letter-spacing: 0.03em
+  font-family: "Roboto Regular", sans-serif
+  line-height: 1
+  -webkit-text-size-adjust: 100%
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0)
+  scroll-behavior: smooth
+
+
+body
+  margin: 0
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"
+  font-weight: 400
+  color: #212529
+  text-align: left
+  background-color: #fff
+
+.img-fluid
+  max-width: 100%
+  height: auto
+
+.center
+  margin: 0 auto
+  text-align: center
+  display: block
