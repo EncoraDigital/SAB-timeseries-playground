@@ -6,7 +6,6 @@
     "jest": true
   },
   "extends": [
-    "eslint:recommended",
     "airbnb-base",
     "plugin:vue/recommended"
   ],
@@ -15,7 +14,7 @@
     "SharedArrayBuffer": "readonly"
   },
   "parserOptions": {
-    "parser": "babel-eslint",
+    "parser": "@babel/eslint-parser",
     "ecmaVersion": 2020,
     "sourceType": "module"
   },
@@ -23,14 +22,15 @@
     "vue"
   ],
   "rules": {
-    "import/extensions": ["error", "never"],
-    "import/no-unresolved": ["error", "never"]
-
+    "import/extensions": ["error", "never"]
   },
   "settings": {
     "import/resolver": {
-      "node": {
-        "extensions": [".js",".jsx",".vue"]
+      "alias": {
+        "map": [
+          ["@", "./resources"]
+        ],
+        "extensions": [".js", ".vue"]
       }
     }
   }

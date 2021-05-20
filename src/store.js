@@ -1,7 +1,8 @@
 /* eslint-disable no-param-reassign */
 import Vue from 'vue';
 import Vuex from 'vuex';
-import Worker from '@/model/data.worker';
+// eslint-disable-next-line import/extensions,import/no-unresolved
+import Worker from '@/model/data.worker.js';
 
 // Constants
 import { datasetParameters, inputFormat, modelHyperparameters } from './constants/parameters';
@@ -49,7 +50,7 @@ const getDefaultState = () => ({
   epochsLeft: modelHyperparameters.epochs.default,
 });
 
-export const store = new Vuex.Store({
+const store = new Vuex.Store({
 
   state: getDefaultState,
   actions: {
@@ -200,3 +201,5 @@ dataWorker.onmessage = async (e) => {
     await store.dispatch(e.data.name, e.data.payload);
   }
 };
+
+export default store;

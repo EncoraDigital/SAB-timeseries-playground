@@ -1,5 +1,6 @@
-import { getDatasetById } from '@/model/datasets';
+/* eslint-disable */
 import * as tf from '@tensorflow/tfjs';
+import getDatasetById from './datasets';
 
 import {
   boxCoxInvTransform,
@@ -9,7 +10,7 @@ import {
   getStd,
   trainTestSplit,
   zIndexTransform,
-} from '@/model/utils';
+} from './utils';
 
 const state = {
   READY: 0,
@@ -26,41 +27,6 @@ let model;
 let data;
 let callbacks;
 let epochsLeft;
-
-onmessage = async (e) => {
-  switch (e.data.type) {
-    case 'setup': {
-      setup(e.data.payload);
-      break;
-    }
-    case 'start': {
-      await play();
-      break;
-    }
-    case 'reset': {
-      reset();
-      break;
-    }
-    case 'updateDatasetId': {
-      changeDataSetId(e.data.payload);
-      break;
-    }
-    case 'updateDatasetSplit': {
-      changeDataSplit(e.data.payload);
-      break;
-    }
-    case 'updateModelHyperparameters': {
-      changeHyperparameters(e.data.payload);
-      break;
-    }
-    case 'updateinputFormat': {
-      changeInputFormat(e.data.payload);
-      break;
-    }
-    default:
-      break;
-  }
-};
 
 const setup = (hyperparameters) => {
   datasetParameters = hyperparameters.datasetParameters;
@@ -342,3 +308,38 @@ const _getPredictionIntervals = (predictions, mean, stdDev) => tf.tidy(() => {
     avgPrediction,
   };
 });
+
+onmessage = async (e) => {
+  switch (e.data.type) {
+    case 'setup': {
+      setup(e.data.payload);
+      break;
+    }
+    case 'start': {
+      await play();
+      break;
+    }
+    case 'reset': {
+      reset();
+      break;
+    }
+    case 'updateDatasetId': {
+      changeDataSetId(e.data.payload);
+      break;
+    }
+    case 'updateDatasetSplit': {
+      changeDataSplit(e.data.payload);
+      break;
+    }
+    case 'updateModelHyperparameters': {
+      changeHyperparameters(e.data.payload);
+      break;
+    }
+    case 'updateinputFormat': {
+      changeInputFormat(e.data.payload);
+      break;
+    }
+    default:
+      break;
+  }
+};

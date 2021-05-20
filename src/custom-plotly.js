@@ -1,3 +1,4 @@
+/* eslint-disable global-require */
 const Plotly = require('plotly.js/lib/core');
 
 Plotly.register([

@@ -168,6 +168,8 @@ const getDatasetById = (id) => {
         end: '2010-04',
       };
       break;
+    default:
+      break;
   }
   return metadata;
 };

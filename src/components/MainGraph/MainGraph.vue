@@ -18,10 +18,10 @@
 </template>
 
 <script>
-import Plotly from '@/custom-plotly';
 import { mapState } from 'vuex';
-import { getDatasetById } from '@/model/datasets';
-import { getDateTimeListAsync } from '@/model/utils';
+import Plotly from '../../custom-plotly';
+import getDatasetById from '../../model/datasets';
+import { getDateTimeListAsync } from '../../model/utils';
 import LabelWithTip from '../LabelWithTip/LabelWithTip';
 import './style.sass';
 
