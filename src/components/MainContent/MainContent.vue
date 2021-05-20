@@ -26,8 +26,8 @@
 
 <script>
 // Components
-import DatasetParameters from '@/components/DatasetParameters/DatasetParameters';
-import InputFormat from '@/components/InputFormat/InputFormat';
+import DatasetParameters from '../DatasetParameters/DatasetParameters';
+import InputFormat from '../InputFormat/InputFormat';
 import MainGraph from '../MainGraph/MainGraph';
 // Styles
 import './style.sass';

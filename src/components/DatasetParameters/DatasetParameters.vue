@@ -28,8 +28,8 @@
 </template>
 
 <script>
-import LabelWithTip from '@/components/LabelWithTip/LabelWithTip';
-import { datasetParameters } from '@/constants/parameters';
+import LabelWithTip from '../LabelWithTip/LabelWithTip';
+import { datasetParameters } from '../../constants/parameters';
 import Slider from '../Slider/Slider';
 import Dataset from '../Dataset/Dataset';
 import './style.sass';

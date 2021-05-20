@@ -21,7 +21,7 @@
 
 <script>
 import './style.sass';
-import LabelWithTip from '@/components/LabelWithTip/LabelWithTip';
+import LabelWithTip from '../LabelWithTip/LabelWithTip';
 
 export default {
   name: 'DropdownContainer',

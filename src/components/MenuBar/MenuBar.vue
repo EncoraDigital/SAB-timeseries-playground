@@ -93,7 +93,7 @@
 
 <script>
 import { mapState } from 'vuex';
-import { modelHyperparameters } from '@/constants/parameters';
+import { modelHyperparameters } from '../../constants/parameters';
 import LabelWithTip from '../LabelWithTip/LabelWithTip';
 import DropdownContainer from '../DropdownContainer/DropdownContainer';
 import './style.sass';

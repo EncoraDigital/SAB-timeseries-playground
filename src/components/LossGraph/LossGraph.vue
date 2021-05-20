@@ -11,11 +11,11 @@
 </template>
 
 <script>
-import Plotly from '@/custom-plotly';
 import { mapState } from 'vuex';
+import Plotly from '../../custom-plotly';
 
 // Components
-import LabelWithTip from '@/components/LabelWithTip/LabelWithTip';
+import LabelWithTip from '../LabelWithTip/LabelWithTip';
 
 // Styles
 import './style.sass';

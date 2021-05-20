@@ -32,9 +32,9 @@
 </template>
 
 <script>
-import DropdownContainer from '@/components/DropdownContainer/DropdownContainer';
-import LabelWithTip from '@/components/LabelWithTip/LabelWithTip';
-import { inputFormat } from '@/constants/parameters';
+import DropdownContainer from '../DropdownContainer/DropdownContainer';
+import LabelWithTip from '../LabelWithTip/LabelWithTip';
+import { inputFormat } from '../../constants/parameters';
 import './style.sass';
 
 export default {

@@ -33,7 +33,7 @@
 
 <script>
 import './style.sass';
-import metricsNames from '@/constants/metrics';
+import metricsNames from '../../constants/metrics';
 import { mapState } from 'vuex';
 import LabelWithTip from '../LabelWithTip/LabelWithTip';
 

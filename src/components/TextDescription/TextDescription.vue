@@ -211,7 +211,7 @@
 </template>
 
 <script>
-import LabelWithTip from '@/components/LabelWithTip/LabelWithTip';
+import LabelWithTip from '../LabelWithTip/LabelWithTip';
 import './style.sass';
 
 export default {
