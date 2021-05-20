@@ -5,7 +5,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
-import { Select, Tooltip } from 'element-ui';
+import { Option, Select, Tooltip } from 'element-ui';
 import store from './store';
 
 import 'element-ui/lib/theme-chalk/index.css';
@@ -17,6 +17,7 @@ import App from './App';
 import './style.sass';
 
 Vue.config.productionTip = false;
+Vue.use(Option);
 Vue.use(Select);
 Vue.use(Tooltip);
 
