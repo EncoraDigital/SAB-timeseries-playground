@@ -2,7 +2,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
   publicPath: process.env.NODE_ENV === 'production'
-    ? 'https://daitan-group.gitlab.io/innovation/poc/timeseries-learning-tool/'
+    ? 'https://daitan-innovation.github.io/timeseries-playground/'
     : '/',
 
   configureWebpack: (config) => {
