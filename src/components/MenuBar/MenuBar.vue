@@ -162,7 +162,7 @@ export default {
     startTraining() {
       if (this.actionButtonDisabled) return;
       this.actionButtonDisabled = true;
-      setTimeout(() => (this.actionButtonDisabled = false), 500);
+      setTimeout(() => { this.actionButtonDisabled = false }, 500);
       this.epochs = this.modelHyperparameters.epochs;
       this.$store.dispatch('startTraining');
     },
