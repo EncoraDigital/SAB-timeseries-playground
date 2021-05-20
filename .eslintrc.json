@@ -22,12 +22,10 @@
   "plugins": [
     "vue"
   ],
-  // add your custom rules here
   "rules": {
-    "import/extensions": ["error", "always", {
-      "js": "never",
-      "vue": "never"
-    }]
+    "import/extensions": ["error", "never"],
+    "import/no-unresolved": ["error", "never"]
+
   },
   "settings": {
     "import/resolver": {
