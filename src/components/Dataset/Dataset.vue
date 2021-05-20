@@ -53,7 +53,9 @@ export default {
       clearTimeout(this.hideTimer);
       this.visible = 1;
       const self = this;
-      this.hideTimer = setTimeout(() => { self.visible = 0; }, 5000);
+      this.hideTimer = setTimeout(() => {
+        self.visible = 0;
+      }, 5000);
     },
   },
 };

@@ -22,18 +22,25 @@
     "vue"
   ],
   "rules": {
-    "import/extensions": ["error", "never"]
+    "import/extensions": [
+      "error",
+      "never"
+    ]
   },
   "settings": {
     "import/resolver": {
       "alias": {
         "map": [
-          ["@", "./resources"]
+          [
+            "@",
+            "./resources"
+          ]
         ],
-        "extensions": [".js", ".vue"]
+        "extensions": [
+          ".js",
+          ".vue"
+        ]
       }
     }
   }
-
-
 }

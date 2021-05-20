@@ -162,7 +162,9 @@ export default {
     startTraining() {
       if (this.actionButtonDisabled) return;
       this.actionButtonDisabled = true;
-      setTimeout(() => { this.actionButtonDisabled = false; }, 500);
+      setTimeout(() => {
+        this.actionButtonDisabled = false;
+      }, 500);
       this.epochs = this.modelHyperparameters.epochs;
       this.$store.dispatch('startTraining');
     },
@@ -176,17 +178,23 @@ export default {
     pauseTraining() {
       if (this.actionButtonDisabled) return;
       this.actionButtonDisabled = true;
-      setTimeout(() => { this.actionButtonDisabled = false; }, 1000);
+      setTimeout(() => {
+        this.actionButtonDisabled = false;
+      }, 1000);
     },
 
     resumeTraining() {
-      setTimeout(() => { this.actionButtonDisabled = false; }, 1000);
+      setTimeout(() => {
+        this.actionButtonDisabled = false;
+      }, 1000);
     },
 
     stepForward() {
       if (this.actionButtonDisabled) return;
       this.actionButtonDisabled = true;
-      setTimeout(() => { this.actionButtonDisabled = false; }, 1000);
+      setTimeout(() => {
+        this.actionButtonDisabled = false;
+      }, 1000);
     },
   },
 };
