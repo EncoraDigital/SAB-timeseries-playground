@@ -154,9 +154,10 @@ export const getStd = (data, mean) => tf.tidy(() => tf.sqrt(tf.mean(tf.square(tf
  * @param {Tensor} data - 1-D Tensor to be normalized
  * @returns {Dict} - Return a dictionary containing the normalized data along with its mean and standar deviation
  */
-export const zIndexTransform = (data, mean, std) =>
+export const zIndexTransform = (data, mean, std) => (
+  tf.tidy(() => tf.div(tf.sub(data, mean), std))
+);
 // perform z-index normalization to the time series data
-  tf.tidy(() => tf.div(tf.sub(data, mean), std));
 
 /**
  * Perform Z-Index inverse normalization
@@ -166,10 +167,10 @@ export const zIndexTransform = (data, mean, std) =>
  * @param {Number} std  - The value of standard deviation used to normalized the input data
  * @returns {Tensor} - Returns the denormalized tensor. The output has the same shape and type as the input.
  */
-export const zIndexInvTransform = (data, mean, std) =>
+export const zIndexInvTransform = (data, mean, std) => (
+  tf.tidy(() => tf.add(tf.mul(data, std), mean))
+);
 // perform inverse z-index normalization
-  tf.tidy(() => tf.add(tf.mul(data, std), mean));
-
 // /**
 //  * Generate dataset for autoregressive time series model training.
 //  * @date 2019-08-30
@@ -233,7 +234,7 @@ export const getModels = (inputShape, nNeurons, actFunction, learningRate, n = 1
   console.assert(n >= 1, 'You need to create at least one model');
   const models = [];
 
-  for (let i = 0; i < n; i++) {
+  for (let i = 0; i < n; i += 1) {
     const model = tf.sequential({
       layers: [
         tf.layers.dense({
