@@ -1,0 +1,112 @@
+@import './../../constants/variables.sass'
+
+.responsive
+  width: 100%
+  max-width: 3rem
+  min-width: 24px
+  height: auto
+
+.menu-bar-container
+  background-color: #FFFFFF
+  height: 9.250rem
+  border-bottom: 1px solid #C6C6C6
+  width: 100%
+  padding: 1.37rem 2.063rem
+  margin: 0 auto
+  display: flex
+  justify-content: space-between
+  align-items: stretch
+
+  span
+    line-height: 1em !important
+
+.play-button-container
+  display: flex
+  justify-content: space-between
+  flex-direction: column
+
+.menu-divider
+  width: 1px
+  background-color: rgba(0, 0, 0, 0.5)
+  margin: 0 3em
+
+.hyperparameters-input-items
+  flex-grow: 1
+  flex-basis: 0
+
+  .label-with-tip
+    padding-bottom: 0.6rem
+
+.hyperparameters-input-items + .hyperparameters-input-items
+  margin-left: 2rem
+
+.hyperparameters-container
+  display: flex
+  justify-content: space-between
+  flex-direction: column
+  flex: 1
+
+.hyperparameters-input-container
+  display: flex
+
+.no-padding
+  padding: 0
+
+.play-button-controllers
+  display: flex
+  justify-content: space-between
+  margin-bottom: 0.2em
+
+.disabled
+  filter: grayscale(100%)
+  opacity: 0.5
+
+.button-item
+  transition: all linear 100ms
+  cursor: pointer
+  border-radius: 50%
+  text-align: center
+  line-height: 3.5em
+  width: 3.5em
+  height: 3.5em
+
+  position: relative
+
+  &:nth-of-type(even)
+    background: #F3931B
+    color: white
+    margin: 0 0.6em
+
+  &:nth-of-type(odd)
+    color: #19204E
+
+  div
+    border-radius: 50%
+
+.rotate-hover
+  transition: 0.9s ease-in-out
+
+.rotate-hover:hover
+  transform: rotateZ(360deg)
+
+#circular-svg
+  position: absolute
+  width: 3.92em
+  height: 3.92em
+  top: -0.21em
+  left: -0.21em
+
+.progress-bar__background
+  fill: none
+
+.progress-bar__progress
+  fill: none
+  stroke: #c56900
+  stroke-dasharray: 100 100
+  stroke-dashoffset: 0
+  stroke-linecap: round
+  stroke-width: 0.15rem
+
+.disabled
+  color: gray !important
+  cursor: unset !important
