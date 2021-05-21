@@ -50,7 +50,7 @@
     "babel-jest": "^26.3.0",
     "babel-loader": "^8.1.0",
     "babel-plugin-component": "^1.1.1",
-    "css-loader": "^4.2.2",
+    "css-loader": "^5.2.5",
     "dart-sass": "^1.25.0",
     "eslint": "^7.7.0",
     "eslint-import-resolver-alias": "^1.1.2",
@@ -62,7 +62,7 @@
     "style-loader": "^1.2.1",
     "terser-webpack-plugin": "^4.1.0",
     "vue-eslint-parser": "^7.6.0",
-    "vue-loader": "^15.9.3",
+    "vue-loader": "^16.2.0",
     "vue-template-compiler": "^2.6.12"
   },
   "resolutions": {

@@ -53,7 +53,7 @@
 
       <p>
         The main visualization graph allows users to interact
-        with the seletec dataset and the model’s predictions. It
+        with the selected dataset and the model’s predictions. It
         displays the time-series in separate chunks of
         training and testing sets. Moreover, one can visualize single
         point values, zoom in to a particular section of
@@ -88,6 +88,8 @@
       <p>
         You can also see the distribution of errors (residuals)
         in the <b>Training Residuals</b> histogram.
+        For a reasonably well-trained model, the distribution of errors should
+        resemble a normal distribution.
       </p>
 
       <h2>Neural Network Auto-Regressive Models</h2>
@@ -106,17 +108,17 @@
       <img
         alt="Image 1"
         class="img-fluid center"
-        src="@/assets/Images/1.png"
+        src="@/assets/Images/1.svg"
       >
       <br>
 
-      <p>and aims to forecast the next value of the sequence</p>
+      <p>and aims to predict the next value of the sequence:</p>
 
       <br>
       <img
         alt="Image 2"
         class="img-fluid center"
-        src="@/assets/Images/2.png"
+        src="@/assets/Images/2.svg"
       >
       <br>
 
@@ -124,7 +126,7 @@
         For seasonal data, it is helpful to add some
         historical observations from the same season
         as input. Let’s consider a monthly spaced time
-        series with legged values <em>p = 3</em>. As we
+        series with legged values <em>p = 4</em>. As we
         saw, the input vector would have lagged values
         as shown in the figure above. But in this case,
         we can also incorporate seasonal lagged values
@@ -151,7 +153,7 @@
       <img
         alt="3"
         class="img-fluid"
-        src="@/assets/Images/4.png"
+        src="@/assets/Images/4.svg"
       >
       <br>
 
