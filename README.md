@@ -6,9 +6,9 @@ Timeseries Learning Tool is a web app that helps the understanding of time serie
 
 # How to execute
 
-1. Clone this repository using Git
-2. Run npm install
-3. Run npm run serve
+1. Clone this repository using Git.
+2. Run ```npm install```
+3. Run ```npm run serve```
 
 # Dependencies
 
