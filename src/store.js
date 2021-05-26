@@ -1,14 +1,9 @@
-/* eslint-disable no-param-reassign */
-import Vue from 'vue';
-import Vuex from 'vuex';
-// eslint-disable-next-line import/extensions,import/no-unresolved
-import Worker from '@/model/data.worker.js';
-
+import { createStore } from 'vuex';
 // Constants
 import { datasetParameters, inputFormat, modelHyperparameters } from './constants/parameters';
 
-Vue.use(Vuex);
-const dataWorker = new Worker();
+const dataWorker = new Worker('./model/worker.js', { type: 'module' });
+let meName = 'me';
 
 const getDefaultState = () => ({
   datasetSplit: datasetParameters.split.default,
@@ -50,7 +45,8 @@ const getDefaultState = () => ({
   epochsLeft: modelHyperparameters.epochs.default,
 });
 
-const store = new Vuex.Store({
+// eslint-disable-next-line new-cap
+const store = new createStore({
 
   state: getDefaultState,
   actions: {
@@ -114,17 +110,20 @@ const store = new Vuex.Store({
     },
     updateModelHyperparameters(state, { parameter, value }) {
       state.modelHyperparameters[parameter] = value;
-      dataWorker.postMessage({ type: 'updateModelHyperparameters', payload: state.modelHyperparameters });
+      dataWorker.postMessage({
+        type: 'updateModelHyperparameters',
+        payload: JSON.parse(JSON.stringify(state.modelHyperparameters)),
+      });
     },
     updateinputFormat(state, { parameter, value }) {
       state.inputFormat[parameter] = value;
-      dataWorker.postMessage({ type: 'updateinputFormat', payload: state.inputFormat });
+      dataWorker.postMessage({ type: 'updateinputFormat', payload: JSON.parse(JSON.stringify(state.inputFormat)) });
     },
     updateMetrics(state, value) {
       state.metrics.mse = value.mse.toFixed(2);
       state.metrics.mae = value.mae.toFixed(2);
       state.metrics.mape = value.mape.toFixed(2);
-      state.metrics.me = value.me.toFixed(2);
+      state.metrics.me = value[meName] ? value[meName].toFixed(2) : Number(0.00);
       state.metrics.rmse = value.rmse.toFixed(2);
     },
     updateAddLoss(state, value) {
@@ -137,7 +136,7 @@ const store = new Vuex.Store({
       state.testMetrics.mse = value.mse.toFixed(2);
       state.testMetrics.mae = value.mae.toFixed(2);
       state.testMetrics.mape = value.mape.toFixed(2);
-      state.testMetrics.me = value.me.toFixed(2);
+      state.testMetrics.me = value[meName] ? value[meName].toFixed(2) : Number(0.00);
       state.testMetrics.rmse = value.rmse.toFixed(2);
     },
     updateTestLoss(state, value) {
@@ -192,14 +191,24 @@ const store = new Vuex.Store({
     getInputFormat: (state) => state.inputFormat,
   },
 });
-dataWorker.postMessage({ type: 'setup', payload: JSON.parse(JSON.stringify(store.getters.parametersAndInputFormat)) });
 
 dataWorker.onmessage = async (e) => {
-  if (e.data.type === 'mutation') {
-    store.commit(e.data.name, e.data.payload);
-  } else if (store.getters.training) {
-    await store.dispatch(e.data.name, e.data.payload);
+  switch (e.data.type) {
+    case 'mutation':
+      store.commit(e.data.name, e.data.payload);
+      break;
+    case 'meUpdate':
+      meName = e.data.payload;
+      break;
+    default: {
+      if (store.getters.training) {
+        await store.dispatch(e.data.name, e.data.payload);
+      }
+      break;
+    }
   }
 };
+
+dataWorker.postMessage({ type: 'setup', payload: JSON.parse(JSON.stringify(store.getters.parametersAndInputFormat)) });
 
 export default store;

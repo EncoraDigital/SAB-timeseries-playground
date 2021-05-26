@@ -1,71 +1,37 @@
-const TerserPlugin = require('terser-webpack-plugin');
+const WorkerPlugin = require('worker-plugin');
 
 module.exports = {
   publicPath: process.env.NODE_ENV === 'production'
-    ? 'https://daitan-innovation.github.io/timeseries-playground/'
+    ? '/timeseries-playground/'
     : '/',
 
-  configureWebpack: (config) => {
-    config.optimization = {
-      splitChunks: {
-        chunks: 'all',
-      },
-      minimize: true,
-      minimizer: [
-        new TerserPlugin({
-          terserOptions: {
-            keep_classnames: true,
-            keep_fnames: true,
-            parse: {
-              // We want terser to parse ecma 8 code. However, we don't want it
-              // to apply minification steps that turns valid ecma 5 code
-              // into invalid ecma 5 code. This is why the `compress` and `output`
-              ecma: 8,
-            },
-            compress: {
-              ecma: 5,
-              inline: 2,
-            },
-            mangle: {
-              // Find work around for Safari 10+
-              safari10: true,
-            },
-            output: {
-              ecma: 5,
-              comments: false,
-            },
-            // Use multi-process parallel running to improve the build speed
-            parallel: true,
-            // Enable file caching
-            cache: true,
-
-          },
-        }),
-      ],
-    };
-
-    config.module.rules = [
-      {
-        test: /\.worker\.js$/i,
-        use: [
-          {
-            loader: 'worker-loader',
-          },
-        ],
-      },
-      ...config.module.rules,
-    ];
-  },
-  pluginOptions: {
-    prerenderSpa: {
-      registry: undefined,
-      renderRoutes: [
-        '/',
-        '',
-      ],
-      useRenderEvent: false,
-      headless: true,
-      onlyProduction: true,
-    },
+  chainWebpack: (config) => {
+    config
+      .optimization
+      .usedExports(true)
+      .end()
+      .plugin('worker-plugin')
+      .use(WorkerPlugin)
+      .end()
+      .plugin('html')
+      .tap((args) => {
+        // eslint-disable-next-line no-param-reassign
+        args[0].title = 'Timeseries Playground';
+        return args;
+      })
+      .end()
+      .module
+      .rule('compile')
+      .test(/\.js$/)
+      .exclude
+      .add(/node_modules/)
+      .add('/model/unit_tests/')
+      .add(/\.test.js$/)
+      .add(/\.tests.js$/)
+      .end()
+      .use('babel')
+      .loader('babel-loader')
+      .options({ presets: ['@babel/preset-env'] })
+      .end();
   },
 };

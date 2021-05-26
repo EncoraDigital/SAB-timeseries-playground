@@ -21,9 +21,7 @@
 import { mapState } from 'vuex';
 import Plotly from '../../custom-plotly';
 import getDatasetById from '../../model/datasets';
-import { getDateTimeListAsync } from '../../model/utils';
-import LabelWithTip from '../LabelWithTip/LabelWithTip';
-import './style.sass';
+import LabelWithTip from '../LabelWithTip/LabelWithTip.vue';
 
 export default {
   name: 'MainGraph',
@@ -96,7 +94,7 @@ export default {
       return Math.floor((this.datasetSplit * this.dataset.data.length) / 100);
     },
     dateList() {
-      return getDateTimeListAsync(
+      return this.getDateTimeListAsync(
         this.dataset.start,
         this.dataset.end,
         this.dataset.frequency,
@@ -210,6 +208,31 @@ export default {
     });
   },
   methods: {
+    getDateTimeListAsync(start, end, freq) {
+      const dateList = [];
+      const dateMove = new Date(start);
+
+      let strDate = start;
+      let dateIncreament = null;
+
+      switch (freq) {
+        case 12:
+          dateIncreament = 1;
+          break;
+        case 4:
+          dateIncreament = 3;
+          break;
+        default:
+          break;
+      }
+
+      while (strDate < end) {
+        strDate = dateMove.toISOString().slice(0, 7);
+        dateList.push(strDate);
+        dateMove.setMonth(dateMove.getMonth() + dateIncreament);
+      }
+      return dateList;
+    },
     showGraph() {
       Plotly.react(this.$props.name, this.traces, this.layout);
       // Plotly.update(this.$props.name)

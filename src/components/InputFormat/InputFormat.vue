@@ -32,10 +32,9 @@
 </template>
 
 <script>
-import DropdownContainer from '../DropdownContainer/DropdownContainer';
-import LabelWithTip from '../LabelWithTip/LabelWithTip';
-import { inputFormat } from '../../constants/parameters';
-import './style.sass';
+import { inputFormat } from '@/constants/parameters';
+import DropdownContainer from '../DropdownContainer/DropdownContainer.vue';
+import LabelWithTip from '../LabelWithTip/LabelWithTip.vue';
 
 export default {
   name: 'InputFormat',
@@ -48,5 +47,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="sass">
+.input-format-item + .input-format-item
+  margin-top: 1.500rem
 </style>

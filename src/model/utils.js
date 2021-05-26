@@ -1,6 +1,32 @@
 /* eslint-disable no-console,max-len */
-import * as tf from '@tensorflow/tfjs';
+import {
+  add,
+  cast,
+  concat,
+  div,
+  exp,
+  gather,
+  log,
+  mean,
+  mul,
+  pow,
+  range,
+  reshape,
+  slice,
+  sqrt,
+  square,
+  sub,
+  Tensor,
+  tidy,
+  tile,
+  train,
+  util,
+} from '@tensorflow/tfjs-core';
+import {
+  layers,
+  sequential,
 
+} from '@tensorflow/tfjs-layers';
 /**
  * Perform dataset train/test split
  * @param {Tensor} data - 1D Tensor. A time series dataset
@@ -11,17 +37,17 @@ export const trainTestSplit = (data, minLength, trainSizePercent) => {
   console.assert(minLength >= 0, 'The value for parameter [minLength] has to be greater than 0');
   console.assert(((trainSizePercent > 0) && (trainSizePercent < 1)), 'The test size percentage has to be between [0-1]');
 
-  return tf.tidy(() => {
+  return tidy(() => {
     const trainSize = parseInt(trainSizePercent * data.shape[0], 10);
     const testSize = data.shape[0] - trainSize;
 
     // compute indices for train and test split
-    const trainIndices = tf.cast(tf.range(0, trainSize), 'int32');
-    const testIndices = tf.cast(tf.range(data.shape[0] - (testSize + minLength - 1), data.shape[0]), 'int32');
+    const trainIndices = cast(range(0, trainSize), 'int32');
+    const testIndices = cast(range(data.shape[0] - (testSize + minLength - 1), data.shape[0]), 'int32');
 
     // splits timeseries data in train/test sets
-    const xTrain = tf.gather(data, trainIndices);
-    const xTest = tf.gather(data, testIndices);
+    const xTrain = gather(data, trainIndices);
+    const xTest = gather(data, testIndices);
 
     return {
       xTrain,
@@ -49,8 +75,6 @@ export const trainTestSplitJS = (data, trainSizePercent) => {
  * Generate an array of date strings.
  *  dataset = getDatasetById(id);
  const dateListPromise = getDateTimeListAsync(dataset.start, dataset.end, dataset.frequency);
-
- // do some sync code...
 
  // resolve the promise
  dateListPromise.then(function (dateList) {
@@ -97,20 +121,20 @@ export const getDateTimeListAsync = (start, end, freq) => {
  */
 export const boxCoxTransform = (data, lambda_) => {
   // Based on implementation descrived at: https://otexts.com/fpp2/transformations.html
-  tf.util.assert(data instanceof tf.Tensor, 'Input time series must be a Tensor Object.');
+  util.assert(data instanceof Tensor, 'Input time series must be a Tensor Object.');
   console.assert(typeof lambda_ === 'number', {
     value: lambda_,
     errorMsg: 'Input lambda parameter must be of type number:',
   });
 
-  return tf.tidy(() => {
+  return tidy(() => {
     if (lambda_ === 0) {
       // simple natural log transform (base e)
-      return tf.log(data);
+      return log(data);
     }
 
     // perform power transform
-    return tf.div(tf.sub(tf.pow(data, lambda_), 1), lambda_);
+    return div(sub(pow(data, lambda_), 1), lambda_);
   });
 };
 
@@ -123,19 +147,19 @@ export const boxCoxTransform = (data, lambda_) => {
  */
 export const boxCoxInvTransform = (data, lambda_) => {
   // BSased on implementation descrived at: https://otexts.com/fpp2/transformations.html
-  tf.util.assert(data instanceof tf.Tensor, 'Input time series must be a Tensor Object.');
+  util.assert(data instanceof Tensor, 'Input time series must be a Tensor Object.');
   console.assert(typeof lambda_ === 'number', {
     value: lambda_,
     errorMsg: 'Input lambda parameter must be of type number:',
   });
 
-  return tf.tidy(() => {
+  return tidy(() => {
     // perform inv boxcox transform
     if (lambda_ === 0) {
-      return tf.exp(data);
+      return exp(data);
     }
 
-    return tf.pow(tf.add(tf.mul(data, lambda_), 1), tf.div(1, lambda_));
+    return pow(add(mul(data, lambda_), 1), div(1, lambda_));
   });
 };
 
@@ -146,7 +170,7 @@ export const boxCoxInvTransform = (data, lambda_) => {
  * @param {Number} mean - The mean of the input data
  * @returns {Number} Returns the standard deviation of the input data
  */
-export const getStd = (data, mean) => tf.tidy(() => tf.sqrt(tf.mean(tf.square(tf.sub(data, mean)))));
+export const getStd = (data, meanValue) => tidy(() => sqrt(mean(square(sub(data, meanValue)))));
 
 /**
  * Perform Z-Index normalization
@@ -154,8 +178,8 @@ export const getStd = (data, mean) => tf.tidy(() => tf.sqrt(tf.mean(tf.square(tf
  * @param {Tensor} data - 1-D Tensor to be normalized
  * @returns {Dict} - Return a dictionary containing the normalized data along with its mean and standar deviation
  */
-export const zIndexTransform = (data, mean, std) => (
-  tf.tidy(() => tf.div(tf.sub(data, mean), std))
+export const zIndexTransform = (data, meanValue, std) => (
+  tidy(() => div(sub(data, meanValue), std))
 );
 // perform z-index normalization to the time series data
 
@@ -167,8 +191,8 @@ export const zIndexTransform = (data, mean, std) => (
  * @param {Number} std  - The value of standard deviation used to normalized the input data
  * @returns {Tensor} - Returns the denormalized tensor. The output has the same shape and type as the input.
  */
-export const zIndexInvTransform = (data, mean, std) => (
-  tf.tidy(() => tf.add(tf.mul(data, std), mean))
+export const zIndexInvTransform = (data, meanValue, std) => (
+  tidy(() => add(mul(data, std), meanValue))
 );
 // perform inverse z-index normalization
 // /**
@@ -183,32 +207,32 @@ export const zIndexInvTransform = (data, mean, std) => (
 export const formatDataset = (data, p, P, freq) => {
   const start = Math.max(P * freq, p);
 
-  return tf.tidy(() => {
-    const y = tf.slice(data, [start], [(data.shape[0] - start)]);
+  return tidy(() => {
+    const y = slice(data, [start], [(data.shape[0] - start)]);
 
     const d = data.shape[0] - start;
 
     const i = start - p;
-    const scalars = tf.range(i, i + p);
-    let indices = tf.reshape(tf.tile(scalars, [d]), [d, scalars.shape[0]]);
+    const scalars = range(i, i + p);
+    let indices = reshape(tile(scalars, [d]), [d, scalars.shape[0]]);
 
-    const addRange = tf.range(0, indices.shape[0]);
-    indices = tf.add(tf.reshape(addRange, [addRange.shape[0], 1]), indices);
+    const addRange = range(0, indices.shape[0]);
+    indices = add(reshape(addRange, [addRange.shape[0], 1]), indices);
 
-    let X = tf.gather(data, tf.cast(indices, 'int32'));
+    let X = gather(data, cast(indices, 'int32'));
 
     const nSeasons = data.shape[0] - (P * freq);
     const seasonHorizon = Math.ceil(((P * freq) - p) / freq);
 
     if (seasonHorizon > 0) {
-      let seassonRange = tf.range(0, seasonHorizon * freq, freq);
-      seassonRange = tf.tile(seassonRange, [nSeasons]);
-      seassonRange = tf.reshape(seassonRange, [nSeasons, seasonHorizon]);
+      let seassonRange = range(0, seasonHorizon * freq, freq);
+      seassonRange = tile(seassonRange, [nSeasons]);
+      seassonRange = reshape(seassonRange, [nSeasons, seasonHorizon]);
 
-      const addScalar = tf.reshape(tf.range(0, nSeasons), [nSeasons, 1]);
+      const addScalar = reshape(range(0, nSeasons), [nSeasons, 1]);
 
-      const seasonValues = tf.gather(data, tf.cast(tf.add(addScalar, seassonRange), 'int32'));
-      X = tf.concat([seasonValues, X], -1);
+      const seasonValues = gather(data, cast(add(addScalar, seassonRange), 'int32'));
+      X = concat([seasonValues, X], -1);
     }
 
     return {
@@ -218,9 +242,10 @@ export const formatDataset = (data, p, P, freq) => {
   });
 };
 
-function me(yTrue, yPred) {
-  // Compute the mean error between prediction and ground truth
-  return tf.tidy(() => tf.mean(tf.sub(yTrue, yPred)));
+// Compute the mean error between prediction and ground truth
+// eslint-disable-next-line no-unused-vars
+export function me(yTrue, yPred) {
+  return tidy(() => mean(sub(yTrue, yPred)));
 }
 
 /**
@@ -235,24 +260,25 @@ export const getModels = (inputShape, nNeurons, actFunction, learningRate, n = 1
   const models = [];
 
   for (let i = 0; i < n; i += 1) {
-    const model = tf.sequential({
+    const model = sequential({
       layers: [
-        tf.layers.dense({
+        layers.dense({
           inputShape,
           units: nNeurons,
           activation: actFunction,
         }),
-        tf.layers.dense({
+        layers.dense({
           units: 1,
         }),
       ],
     });
 
     model.compile({
-      optimizer: tf.train.adam(learningRate),
+      optimizer: train.adam(learningRate),
       loss: 'meanSquaredError',
       metrics: ['mse', 'mae', 'mape', me],
     });
+
     model.summary();
     models.push(model);
   }
@@ -260,18 +286,18 @@ export const getModels = (inputShape, nNeurons, actFunction, learningRate, n = 1
 };
 
 export const getSingleModel = (inputShape, nNeurons, actFunction, learningRate) => {
-  const model = tf.sequential({
-    layers: [tf.layers.dense({
+  const model = sequential({
+    layers: [layers.dense({
       inputShape,
       units: nNeurons,
       activation: actFunction,
     }),
-    tf.layers.dense({ units: 1 }),
+    layers.dense({ units: 1 }),
     ],
   });
 
   model.compile({
-    optimizer: tf.train.adam(learningRate),
+    optimizer: train.adam(learningRate),
     loss: 'meanSquaredError',
     metrics: ['mse', 'mae', 'mape', me],
   });

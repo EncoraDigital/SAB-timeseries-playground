@@ -213,8 +213,7 @@
 </template>
 
 <script>
-import LabelWithTip from '../LabelWithTip/LabelWithTip';
-import './style.sass';
+import LabelWithTip from '../LabelWithTip/LabelWithTip.vue';
 
 export default {
   name: 'TextDescription',
@@ -229,5 +228,32 @@ export default {
 };
 </script>
 
-<style>
+<style lang="sass">
+@import "../../constants/variables"
+
+#text-description-wrapper
+  margin-top: 100px
+  width: 100%
+
+#text-title
+  margin: 0 auto
+  text-align: center
+
+#text-description
+  margin: 0 auto
+  line-height: 2em
+  font-size: 1.25em
+
+@media (min-width: $screen-sm-min)
+  #text-description
+    width: 90%
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: $screen-md-min)
+  #text-description
+    width: 70%
+
+@media (min-width: $screen-lg-min)
+  #text-description
+    width: 50%
 </style>
