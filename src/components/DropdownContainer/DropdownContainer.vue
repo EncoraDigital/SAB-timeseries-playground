@@ -20,8 +20,7 @@
 </template>
 
 <script>
-import './style.sass';
-import LabelWithTip from '../LabelWithTip/LabelWithTip';
+import LabelWithTip from '../LabelWithTip/LabelWithTip.vue';
 
 export default {
   name: 'DropdownContainer',
@@ -74,5 +73,34 @@ export default {
 };
 </script>
 
-<style>
+<style lang="sass">
+@import './../../constants/variables.sass'
+
+.el-select
+  width: 100%
+
+.el-select-dropdown__item.selected
+  background: #FA9430
+  color: white !important
+
+.el-select-dropdown__item.hover
+  background: #FEC47C
+  color: white !important
+
+.el-select-dropdown .popper__arrow
+  display: none !important
+
+.dropdown-container
+  .label-with-tip
+    font-size: 0.8750rem !important
+    line-height: 1rem
+    margin-bottom: 0
+
+    .label
+      font-family: "Roboto Regular", sans-serif !important
+      color: black !important
+
+.el-input__inner, .el-input, .el-select, .el-input__suffix-inner, .el-select__caret
+  height: 2.500rem !important
+  line-height: 2.5rem !important
 </style>

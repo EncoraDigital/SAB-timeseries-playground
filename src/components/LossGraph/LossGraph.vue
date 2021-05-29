@@ -15,10 +15,7 @@ import { mapState } from 'vuex';
 import Plotly from '../../custom-plotly';
 
 // Components
-import LabelWithTip from '../LabelWithTip/LabelWithTip';
-
-// Styles
-import './style.sass';
+import LabelWithTip from '../LabelWithTip/LabelWithTip.vue';
 
 export default {
   name: 'LossGraph',
@@ -136,5 +133,5 @@ export default {
 };
 </script>
 
-<style>
+<style lang="sass">
 </style>

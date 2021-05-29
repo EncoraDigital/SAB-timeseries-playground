@@ -30,4 +30,4 @@ Timeseries Learning Tool is a web app that helps the understanding of time serie
 
 # Preview
 
-![image-preview](./assets/preview.gif)
+![image-preview](./preview.gif)

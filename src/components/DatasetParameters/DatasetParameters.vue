@@ -10,29 +10,33 @@
     />
     <Dataset
       :dataset-key="0"
-      :img-src="require('../../assets/Images/international_airline_passengers.jpg')"
+      :img-src="image1"
     />
     <Dataset
       :dataset-key="1"
-      :img-src="require('../../assets/Images/us_electricity_generation.jpg')"
+      :img-src="image2"
     />
     <Dataset
       :dataset-key="2"
-      :img-src="require('../../assets/Images/uk_gas_consumption.jpg')"
+      :img-src="image3"
     />
     <Dataset
       :dataset-key="3"
-      :img-src="require('../../assets/Images/australian_beer_production.jpg')"
+      :img-src="image4"
     />
   </div>
 </template>
 
 <script>
-import LabelWithTip from '../LabelWithTip/LabelWithTip';
-import { datasetParameters } from '../../constants/parameters';
-import Slider from '../Slider/Slider';
-import Dataset from '../Dataset/Dataset';
-import './style.sass';
+import { datasetParameters } from '@/constants/parameters';
+import image1 from '../../assets/Images/international_airline_passengers.jpg';
+import image2 from '../../assets/Images/us_electricity_generation.jpg';
+import image3 from '../../assets/Images/uk_gas_consumption.jpg';
+import image4 from '../../assets/Images/australian_beer_production.jpg';
+
+import LabelWithTip from '../LabelWithTip/LabelWithTip.vue';
+import Slider from '../Slider/Slider.vue';
+import Dataset from '../Dataset/Dataset.vue';
 
 export default {
   name: 'DatasetParameters',
@@ -40,7 +44,23 @@ export default {
   data() {
     return {
       datasetParameters,
+      image1,
+      image2,
+      image3,
+      image4,
+
     };
   },
 };
 </script>
+
+<style lang="sass">
+#dataset-container
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5)
+  padding-bottom: 2em
+
+#dataset-container
+  span
+    line-height: 1em
+    padding-bottom: 0.5em
+</style>

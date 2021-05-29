@@ -7,8 +7,8 @@
 
 <script>
 
-import TitleBar from '../TitleBar/TitleBar';
-import MenuBar from '../MenuBar/MenuBar';
+import TitleBar from '../TitleBar/TitleBar.vue';
+import MenuBar from '../MenuBar/MenuBar.vue';
 
 export default {
   name: 'MainHeader',

@@ -1,39 +1,26 @@
-import Vue from 'vue';
+import { createApp } from 'vue';
+import store from '@/store';
+import 'element-plus/lib/theme-chalk/index.css';
+import { ElOption, ElSelect, ElTooltip } from 'element-plus';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
   faInfoCircle, faPause, faPlay, faRedoAlt, faStepForward,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-
-import { Option, Select, Tooltip } from 'element-ui';
-import store from './store';
-
-import 'element-ui/lib/theme-chalk/index.css';
-
-// Components
-import App from './App';
-
-// Styles
 import './style.sass';
+import App from './App.vue';
 
-Vue.config.productionTip = false;
-Vue.use(Option);
-Vue.use(Select);
-Vue.use(Tooltip);
-
-// FontAwesome
-Vue.component('font-awesome-icon', FontAwesomeIcon);
-
+library.add(faInfoCircle);
+library.add(faPause);
 library.add(faPlay);
 library.add(faRedoAlt);
-library.add(faPause);
 library.add(faStepForward);
-library.add(faInfoCircle);
-new Vue({
-  store,
-  render() {
-    return (
-            <App/>
-    );
-  },
-}).$mount('#app');
+
+const app = createApp(App);
+app.use(store);
+app.component(ElOption.name, ElOption);
+app.component(ElSelect.name, ElSelect);
+app.component(ElTooltip.name, ElTooltip);
+app.component('font-awesome-icon', FontAwesomeIcon);
+
+app.mount('#app');

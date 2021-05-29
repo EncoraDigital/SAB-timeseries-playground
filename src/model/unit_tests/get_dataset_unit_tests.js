@@ -1,15 +1,16 @@
 /* eslint-disable no-console */
-import * as tf from '@tensorflow/tfjs';
-import { formatDataset } from '../utils';
+import {
+  tensor1d, print, tensor, tensor2d, all, equal,
+} from '@tensorflow/tfjs-core'; import { formatDataset } from '../utils';
 
 // Test runings
 // Define simple time series
-const data = tf.tensor([10, 8, 2, 3, 4, 5, 2, 4, 2, 3, 5, 6, 7, 10]);
-tf.print(`Input series: ${data}`);
+const data = tensor([10, 8, 2, 3, 4, 5, 2, 4, 2, 3, 5, 6, 7, 10]);
+print(`Input series: ${data}`);
 
 function testFormatDatasetFunction(testOutputX, testOutputY, targetX, targetY) {
-  const cond1 = tf.all(tf.equal(testOutputX, tf.tensor2d(targetX))).dataSync();
-  const cond2 = tf.all(tf.equal(testOutputY, tf.tensor1d(targetY))).dataSync();
+  const cond1 = all(equal(testOutputX, tensor2d(targetX))).dataSync();
+  const cond2 = all(equal(testOutputY, tensor1d(targetY))).dataSync();
 
   if ((cond1 === true) && (cond2 === true)) {
     console.log('%c V - Passed! ', 'color: green');
