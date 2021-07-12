@@ -3,7 +3,7 @@
     <img
       alt="Logo"
       class="logo"
-      src="@/assets/logo.svg"
+      src="@/assets/logo.png"
     >
     <div class="line" />
     <span class="title">Time Series Playground</span>
