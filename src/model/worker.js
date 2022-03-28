@@ -202,7 +202,6 @@ const changeInputFormat = (newInputFormat) => {
 const changeHyperparameters = (newHyperparameters) => {
     reset();
     modelHyperparameters = newHyperparameters;
-    prepareDataSet();
 };
 
 const createNeuralNet = (paramaters) => {
