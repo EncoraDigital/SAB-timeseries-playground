@@ -126,7 +126,7 @@
         For seasonal data, it is helpful to add some
         historical observations from the same season
         as input. Let’s consider a monthly spaced time
-        series with legged values <em>p = 4</em>. As we
+        series with lagged values <em>p = 4</em>. As we
         saw, the input vector would have lagged values
         as shown in the figure above. But in this case,
         we can also incorporate seasonal lagged values
