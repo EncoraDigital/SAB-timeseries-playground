@@ -200,6 +200,7 @@ const changeInputFormat = (newInputFormat) => {
     prepareDataSet();
 };
 const changeHyperparameters = (newHyperparameters) => {
+    reset();
     modelHyperparameters = newHyperparameters;
 };
 
