@@ -6,6 +6,10 @@
 
 Timeseries Learning Tool is a web app that helps the understanding of time series
 
+# Requirement
+
+This application was tested on Node.js 16.x.x, so using previous versions of Node.js may not work as intended. 
+
 # How to execute
 
 1. Clone this repository using Git.
