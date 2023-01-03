@@ -1,6 +1,6 @@
 <template>
   <div id="footer">
-    <div>©{{ new Date().getFullYear() }} Daitan Group</div>
+    <div>©{{ new Date().getFullYear() }} Encora</div>
     <span>Built by Innovation Team</span>
   </div>
 </template>
