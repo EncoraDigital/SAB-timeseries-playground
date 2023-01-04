@@ -1,6 +1,6 @@
 # Time Series Learning Tool
 
-[Access it here!](https://daitan-innovation.github.io/timeseries-playground/)
+[Access it here!](https://encoradigital.github.io/SAB-timeseries-playground/)
 
 # Overview
 
